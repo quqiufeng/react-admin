@@ -1,5 +1,9 @@
 ﻿export default [
   {
+    path: '/',
+    component: './Welcome'
+  },
+  {
     path: '/user',
     layout: false,
     routes: [
@@ -226,10 +230,6 @@
         component: './form/advanced-form',
       },
     ],
-  },
-  {
-    path: '/',
-    redirect: '/dashboard/analysis',
   },
   {component: './exception/404'}
 ];
