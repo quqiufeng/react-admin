@@ -54,6 +54,10 @@ export default {
           key: '0',
           label: '很有想法的',
         },
+        {
+          key: '1',
+          label: '还不错',
+        }
       ],
       notifyCount: 12,
       unreadCount: 11,

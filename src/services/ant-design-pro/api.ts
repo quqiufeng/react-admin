@@ -17,3 +17,10 @@ export async function getNotices(options?: { [key: string]: any }) {
     ...(options || {}),
   });
 }
+
+export async function getMenu(options?: { [key: string]: any }) {
+  return request<API.MenuList>('/api/menu', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}

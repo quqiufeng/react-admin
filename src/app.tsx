@@ -7,7 +7,7 @@ import { history } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import type { ResponseError } from 'umi-request';
-import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
+import { currentUser as queryCurrentUser,getMenu as queryMenu } from './services/ant-design-pro/api';
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
 export const initialStateConfig = {
@@ -21,6 +21,7 @@ export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
   currentUser?: API.CurrentUser;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
+  fetchMenuInfo?: () => Promise<API.MenuList| undefined>;
 }> {
   const fetchUserInfo = async () => {
     try {
@@ -31,9 +32,21 @@ export async function getInitialState(): Promise<{
     }
     return undefined;
   };
+  const fetchMenuInfo = async () => {
+    try {
+      const currentUser = await queryMenu();
+      return currentUser;
+    } catch (error) {
+    }
+    return undefined;
+  };
+
+
   // 如果是登录页面，不执行
   if (history.location.pathname !== '/user/login') {
     const currentUser = await fetchUserInfo();
+    const currentMenu = await fetchMenuInfo();
+    console.log(currentMenu);
     return {
       fetchUserInfo,
       currentUser,

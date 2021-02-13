@@ -5,7 +5,8 @@ import type {
   } from '@ant-design/pro-layout';
   import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
   import React from 'react';
-  import { Link,useIntl } from 'umi';
+  import { Link,useIntl,history } from 'umi';
+
   import RightContent from '@/components/RightContent';
   import defaultSettings from '../../config/defaultSettings';
 
@@ -51,7 +52,7 @@ import type {
         logo={defaultSettings.logo}
         formatMessage={formatMessage}
         {...props}
-        onMenuHeaderClick={(e) => console.log(e)}
+        onMenuHeaderClick={() => history.push('/')}
         menuItemRender={(menuItemProps, defaultDom) => {
           if (
             menuItemProps.isUrl ||

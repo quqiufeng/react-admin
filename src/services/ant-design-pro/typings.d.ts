@@ -77,6 +77,19 @@ declare namespace API {
     success?: boolean;
   };
 
+  type MenuList = {
+    data?: MenuItem[];
+    success?: boolean;
+  }
+
+  type MenuItem = {
+    path?: string;
+    name?: string;
+    icon?: string;
+    component?: string;
+    routes?: MenuItem[]
+  }
+
   type NoticeIconList = {
     data?: NoticeIconItem[];
     /** 列表的内容总数 */
