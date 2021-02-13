@@ -19,7 +19,7 @@
     path: '/welcome',
     name: 'welcome',
     icon: 'smile',
-    component: './Welcome',
+    component: './Welcome',// 如果是相对路径，会从 src/pages 开始找起 如果指向 src 目录的文件，可以用 @，也可以用 ../。比如 component: '@/layouts/basic'
   },
   {
     path: '/admin',
@@ -230,5 +230,6 @@
   {
     path: '/',
     redirect: '/dashboard/analysis',
-  }
+  },
+  {component: './exception/404'}
 ];
