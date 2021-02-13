@@ -31,6 +31,8 @@ const loginOut = async () => {
 
 const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   const { initialState, setInitialState } = useModel('@@initialState');
+  //获取menu信息
+  //console.log(initialState?.currentMenu);
 
   const onMenuClick = useCallback(
     (event: {
@@ -66,7 +68,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     return loading;
   }
 
-  const { currentUser } = initialState;
+  const { currentUser} = initialState;
 
   if (!currentUser || !currentUser.name) {
     return loading;

@@ -18,7 +18,7 @@ export async function getNotices(options?: { [key: string]: any }) {
   });
 }
 
-export async function getMenu(options?: { [key: string]: any }) {
+export async function currentMenu(options?: { [key: string]: any }) {
   return request<API.MenuList>('/api/menu', {
     method: 'GET',
     ...(options || {}),
