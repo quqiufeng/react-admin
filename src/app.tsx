@@ -2,13 +2,28 @@ import React from 'react';
 import type { Settings as LayoutSettings,MenuDataItem,BasicLayoutProps} from '@ant-design/pro-layout';
 import { PageLoading } from '@ant-design/pro-layout';
 import { notification } from 'antd';
-import type { RequestConfig, RunTimeLayoutConfig,BaseIConfig } from 'umi';
+import type { RequestConfig} from 'umi';
 import { history } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import type { ResponseError } from 'umi-request';
+import Authorized from '@/utils/Authorized';
+import { SmileOutlined, HeartOutlined, CrownOutlined,
+  DashboardOutlined, TableOutlined, ProfileOutlined, 
+  WarningOutlined,UserOutlined, FormOutlined,} from '@ant-design/icons';
+
 import { currentUser as queryCurrentUser,currentMenu as queryMenu } from './services/ant-design-pro/api';
-import initialState from './.umi/plugin-initial-state/models/initialState';
+const IconMap = {
+  smile: <SmileOutlined />,
+  heart: <HeartOutlined />,
+  crown: <CrownOutlined />,
+  dashboard: <DashboardOutlined />,
+  table:<TableOutlined />,
+  profile: <ProfileOutlined />,
+  warning: <WarningOutlined />,
+  user: <UserOutlined/>,
+  form: <FormOutlined />
+};
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
 export const initialStateConfig = {
@@ -60,6 +75,22 @@ export async function getInitialState(): Promise<{
   };
 }
 
+const loopMenuItem = (menus: MenuDataItem[]): MenuDataItem[] =>
+  menus.map(({ icon, children, ...item }) => ({
+    ...item,
+    icon: icon && IconMap[icon as string],
+    children: children && loopMenuItem(children),
+  }));
+
+const menuRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
+  menuList.map(item => {
+    const localItem = {
+      ...item,
+      children: item.children ? menuRender(item.children) : [],
+    };
+    return Authorized.check(item.authority, localItem, null) as MenuDataItem;
+  });
+
 //自定义菜单
 export const layout = ({
   initialState,
@@ -77,9 +108,12 @@ export const layout = ({
         history.push('/user/login');
       }
     },
+    menuDataRender:() => loopMenuItem(initialState.currentMenu),
+    /*
     menuDataRender: (currentMenu) => {
-      return initialState.currentMenu;
+      return menuRender(initialState.currentMenu);
     },
+    */
     menuHeaderRender: undefined,
     ...initialState?.settings,
   };
