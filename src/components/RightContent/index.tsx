@@ -17,6 +17,7 @@ const ENVTagColor = {
 };
 
 const GlobalHeaderRight: React.FC = () => {
+  //获取currentUser currentMenu等初始化变量
   const { initialState } = useModel('@@initialState');
   if (!initialState || !initialState.settings) {
     return null;
@@ -32,13 +33,9 @@ const GlobalHeaderRight: React.FC = () => {
       <HeaderSearch
         className={`${styles.action} ${styles.search}`}
         placeholder="站内搜索"
-        defaultValue="umi ui"
+        defaultValue="beautinow"
         options={[
-          { label: <a href="https://umijs.org/zh/guide/umi-ui.html">umi ui</a>, value: 'umi ui' },
-          {
-            label: <a href="next.ant.design">Ant Design</a>,
-            value: 'Ant Design',
-          },
+          { label: <a href="https://www.beautinow.com">beautinow</a>, value: 'beautinow' },
         ]}
         onSearch={value => {
            console.log('input', value);

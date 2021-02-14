@@ -75,21 +75,13 @@ export async function getInitialState(): Promise<{
   };
 }
 
+//渲染菜单 加上icon
 const loopMenuItem = (menus: MenuDataItem[]): MenuDataItem[] =>
   menus.map(({ icon, children, ...item }) => ({
     ...item,
     icon: icon && IconMap[icon as string],
     children: children && loopMenuItem(children),
-  }));
-
-const menuRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
-  menuList.map(item => {
-    const localItem = {
-      ...item,
-      children: item.children ? menuRender(item.children) : [],
-    };
-    return Authorized.check(item.authority, localItem, null) as MenuDataItem;
-  });
+}));
 
 //自定义菜单
 export const layout = ({
@@ -98,6 +90,7 @@ export const layout = ({
   initialState: { settings?: LayoutSettings; currentUser?: API.CurrentUser; currentMenu: MenuDataItem[]};
 }): BasicLayoutProps => {
   return {
+    fixedHeader: true,
     rightContentRender: () => <RightContent />,
     footerRender: () => <Footer />,
     onPageChange: () => {
@@ -109,11 +102,6 @@ export const layout = ({
       }
     },
     menuDataRender:() => loopMenuItem(initialState.currentMenu),
-    /*
-    menuDataRender: (currentMenu) => {
-      return menuRender(initialState.currentMenu);
-    },
-    */
     menuHeaderRender: undefined,
     ...initialState?.settings,
   };
