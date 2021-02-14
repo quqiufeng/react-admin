@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Settings as LayoutSettings } from '@ant-design/pro-layout';
+import type { Settings as LayoutSettings,MenuDataItem } from '@ant-design/pro-layout';
 import { PageLoading } from '@ant-design/pro-layout';
 import { notification } from 'antd';
 import type { RequestConfig, RunTimeLayoutConfig } from 'umi';
@@ -8,6 +8,8 @@ import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import type { ResponseError } from 'umi-request';
 import { currentUser as queryCurrentUser,currentMenu as queryMenu } from './services/ant-design-pro/api';
+import initialState from './.umi/plugin-initial-state/models/initialState';
+import defaultSettings from '../config/defaultSettings';
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
 export const initialStateConfig = {
@@ -45,6 +47,7 @@ export async function getInitialState(): Promise<{
   if (history.location.pathname !== '/user/login') {
     const currentUser = await fetchUserInfo();
     const currentMenu = await fetchMenuInfo();
+    console.log(currentMenu);
     return {
       fetchUserInfo,
       fetchMenuInfo,
@@ -58,6 +61,8 @@ export async function getInitialState(): Promise<{
     settings: {},
   };
 }
+
+//渲染菜单
 
 // https://umijs.org/zh-CN/plugins/plugin-layout
 export const layout: RunTimeLayoutConfig = ({ initialState }) => {

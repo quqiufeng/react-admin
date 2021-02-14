@@ -1,7 +1,8 @@
 ﻿export default [
   {
     path: '/',
-    component: '@/layouts/BasicLayout',
+    //component: '@/layouts/BasicLayout',
+    component: './dashboard/analysis',
   },
   {
     path: '/user',
