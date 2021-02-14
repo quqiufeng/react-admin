@@ -9,6 +9,7 @@ import type {
 
   import RightContent from '@/components/RightContent';
   import defaultSettings from '../../config/defaultSettings';
+  import routes from '../../config/routes';
 
   export type BasicLayoutProps = {
     breadcrumbNameMap: Record<string, MenuDataItem>;
@@ -37,6 +38,7 @@ import type {
     />
   );
   
+
   const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
     const {
       children,
@@ -49,10 +51,15 @@ import type {
   
     return (
       <ProLayout
+        navTheme="light"
+        headerTheme="dark"
         logo={defaultSettings.logo}
         formatMessage={formatMessage}
         {...props}
         onMenuHeaderClick={() => history.push('/')}
+        menuHeaderRender={(logo, title) => (
+          <div>{logo}</div>
+        )}
         menuItemRender={(menuItemProps, defaultDom) => {
           if (
             menuItemProps.isUrl ||
@@ -78,8 +85,8 @@ import type {
             <span>{route.breadcrumbName}</span>
           );
         }}
+        menuDataRender={() => menuDataRender(routes)}
         footerRender={() => defaultFooterDom}
-        menuDataRender={menuDataRender}
         rightContentRender={() => <RightContent />}
       >
         {children}
