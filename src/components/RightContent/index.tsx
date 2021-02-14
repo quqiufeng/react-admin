@@ -10,11 +10,6 @@ import { message } from 'antd';
 
 
 export type SiderTheme = 'light' | 'dark';
-const ENVTagColor = {
-  dev: 'orange',
-  test: 'green',
-  pre: '#87d068',
-};
 
 const GlobalHeaderRight: React.FC = () => {
   //获取currentUser currentMenu等初始化变量

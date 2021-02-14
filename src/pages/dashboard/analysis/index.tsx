@@ -143,6 +143,9 @@ class Analysis extends Component<AnalysisProps, AnalysisState> {
       </Menu>
     );
 
+    //自定义样式
+    const style = { padding: '20px 0 0 0' };
+
     const dropdownGroup = (
       <span className={styles.iconGroup}>
         <Dropdown overlay={menu} placement="bottomRight">
@@ -153,7 +156,7 @@ class Analysis extends Component<AnalysisProps, AnalysisState> {
 
     const activeKey = currentTabKey || (offlineData[0] && offlineData[0].name);
     return (
-      <GridContent>
+      <GridContent style={style}>
         <React.Fragment>
           <Suspense fallback={<PageLoading />}>
             <IntroduceRow loading={loading} visitData={visitData} />
