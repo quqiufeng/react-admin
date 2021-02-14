@@ -1,15 +1,14 @@
 import React from 'react';
-import type { Settings as LayoutSettings,MenuDataItem } from '@ant-design/pro-layout';
+import type { Settings as LayoutSettings,MenuDataItem,BasicLayoutProps} from '@ant-design/pro-layout';
 import { PageLoading } from '@ant-design/pro-layout';
 import { notification } from 'antd';
-import type { RequestConfig, RunTimeLayoutConfig } from 'umi';
+import type { RequestConfig, RunTimeLayoutConfig,BaseIConfig } from 'umi';
 import { history } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import type { ResponseError } from 'umi-request';
 import { currentUser as queryCurrentUser,currentMenu as queryMenu } from './services/ant-design-pro/api';
 import initialState from './.umi/plugin-initial-state/models/initialState';
-import defaultSettings from '../config/defaultSettings';
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
 export const initialStateConfig = {
@@ -22,9 +21,9 @@ export const initialStateConfig = {
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
   currentUser?: API.CurrentUser;
-  currentMenu?: API.MenuList;
+  currentMenu?: MenuDataItem[];
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
-  fetchMenuInfo?: () => Promise<API.MenuList| undefined>;
+  fetchMenuInfo?: () => Promise<MenuDataItem[]| undefined>;
 }> {
   const fetchUserInfo = async () => {
     try {
@@ -47,7 +46,6 @@ export async function getInitialState(): Promise<{
   if (history.location.pathname !== '/user/login') {
     const currentUser = await fetchUserInfo();
     const currentMenu = await fetchMenuInfo();
-    console.log(currentMenu);
     return {
       fetchUserInfo,
       fetchMenuInfo,
@@ -62,25 +60,27 @@ export async function getInitialState(): Promise<{
   };
 }
 
-//渲染菜单
-
-// https://umijs.org/zh-CN/plugins/plugin-layout
-export const layout: RunTimeLayoutConfig = ({ initialState }) => {
+//自定义菜单
+export const layout = ({
+  initialState,
+}: {
+  initialState: { settings?: LayoutSettings; currentUser?: API.CurrentUser; currentMenu: MenuDataItem[]};
+}): BasicLayoutProps => {
   return {
     rightContentRender: () => <RightContent />,
-    disableContentMargin: false,
-    footerRender: () => <Footer />,//重写footer 可以修改为 ""
+    footerRender: () => <Footer />,
     onPageChange: () => {
+      const { currentUser} = initialState;
       const { location } = history;
       // 如果没有登录，重定向到 login
-      if (!initialState?.currentUser && location.pathname !== '/user/login') {
+      if (!currentUser && location.pathname !== '/user/login') {
         history.push('/user/login');
       }
     },
-    links: [],
+    menuDataRender: (currentMenu) => {
+      return initialState.currentMenu;
+    },
     menuHeaderRender: undefined,
-    // 自定义 403 页面
-    // unAccessible: <div>unAccessible</div>,
     ...initialState?.settings,
   };
 };
