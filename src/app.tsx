@@ -7,11 +7,9 @@ import { history } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import type { ResponseError } from 'umi-request';
-import Authorized from '@/utils/Authorized';
 import { SmileOutlined, HeartOutlined, CrownOutlined,
   DashboardOutlined, TableOutlined, ProfileOutlined, 
   WarningOutlined,UserOutlined, FormOutlined,} from '@ant-design/icons';
-
 import { currentUser as queryCurrentUser,currentMenu as queryMenu } from './services/ant-design-pro/api';
 const IconMap = {
   smile: <SmileOutlined />,
