@@ -11,7 +11,6 @@ import { SmileOutlined, HeartOutlined, CrownOutlined,
   DashboardOutlined, TableOutlined, ProfileOutlined, 
   WarningOutlined,UserOutlined, FormOutlined,} from '@ant-design/icons';
 import { currentUser as queryCurrentUser,currentMenu as queryMenu } from './services/ant-design-pro/api';
-import menu from 'mock/menu';
 const IconMap = {
   smile: <SmileOutlined />,
   heart: <HeartOutlined />,
