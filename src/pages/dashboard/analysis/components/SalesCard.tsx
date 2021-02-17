@@ -1,10 +1,10 @@
 import { Card, Col, DatePicker, Row, Tabs } from 'antd';
-import { FormattedMessage, formatMessage } from 'umi';
+import { FormattedMessage, formatMessage } from 'umi';//废弃的多语言翻译方法
 import { RangePickerProps } from 'antd/es/date-picker/generatePicker';
 import moment from 'moment';
 
 import React from 'react';
-import numeral from 'numeral';
+import numeral from 'numeral';//需要安装 @types/numeral typescript定义包
 import { VisitDataType } from '../data.d';
 import { Bar } from './Charts';
 import styles from '../style.less';

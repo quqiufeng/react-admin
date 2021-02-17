@@ -1,6 +1,6 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { Button, Card, DatePicker, Input, Form, InputNumber, Radio, Select, Tooltip } from 'antd';
-import { connect, Dispatch, FormattedMessage, formatMessage } from 'umi';
+import { connect, Dispatch, FormattedMessage,useIntl } from 'umi';
 import React, { FC } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import styles from './style.less';
@@ -9,6 +9,7 @@ const FormItem = Form.Item;
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
+const intl = useIntl();
 
 interface BasicFormProps {
   submitting: boolean;
@@ -76,11 +77,11 @@ const BasicForm: FC<BasicFormProps> = (props) => {
             rules={[
               {
                 required: true,
-                message: formatMessage({ id: 'formandbasic-form.title.required' }),
+                message: intl.formatMessage({ id: 'formandbasic-form.title.required' }),
               },
             ]}
           >
-            <Input placeholder={formatMessage({ id: 'formandbasic-form.title.placeholder' })} />
+            <Input placeholder={intl.formatMessage({ id: 'formandbasic-form.title.placeholder' })} />
           </FormItem>
           <FormItem
             {...formItemLayout}
@@ -89,15 +90,15 @@ const BasicForm: FC<BasicFormProps> = (props) => {
             rules={[
               {
                 required: true,
-                message: formatMessage({ id: 'formandbasic-form.date.required' }),
+                message: intl.formatMessage({ id: 'formandbasic-form.date.required' }),
               },
             ]}
           >
             <RangePicker
               style={{ width: '100%' }}
               placeholder={[
-                formatMessage({ id: 'formandbasic-form.placeholder.start' }),
-                formatMessage({ id: 'formandbasic-form.placeholder.end' }),
+                intl.formatMessage({ id: 'formandbasic-form.placeholder.start' }),
+                intl.formatMessage({ id: 'formandbasic-form.placeholder.end' }),
               ]}
             />
           </FormItem>
@@ -108,13 +109,13 @@ const BasicForm: FC<BasicFormProps> = (props) => {
             rules={[
               {
                 required: true,
-                message: formatMessage({ id: 'formandbasic-form.goal.required' }),
+                message: intl.formatMessage({ id: 'formandbasic-form.goal.required' }),
               },
             ]}
           >
             <TextArea
               style={{ minHeight: 32 }}
-              placeholder={formatMessage({ id: 'formandbasic-form.goal.placeholder' })}
+              placeholder={intl.formatMessage({ id: 'formandbasic-form.goal.placeholder' })}
               rows={4}
             />
           </FormItem>
@@ -125,13 +126,13 @@ const BasicForm: FC<BasicFormProps> = (props) => {
             rules={[
               {
                 required: true,
-                message: formatMessage({ id: 'formandbasic-form.standard.required' }),
+                message: intl.formatMessage({ id: 'formandbasic-form.standard.required' }),
               },
             ]}
           >
             <TextArea
               style={{ minHeight: 32 }}
-              placeholder={formatMessage({ id: 'formandbasic-form.standard.placeholder' })}
+              placeholder={intl.formatMessage({ id: 'formandbasic-form.standard.placeholder' })}
               rows={4}
             />
           </FormItem>
@@ -150,7 +151,7 @@ const BasicForm: FC<BasicFormProps> = (props) => {
             }
             name="client"
           >
-            <Input placeholder={formatMessage({ id: 'formandbasic-form.client.placeholder' })} />
+            <Input placeholder={intl.formatMessage({ id: 'formandbasic-form.client.placeholder' })} />
           </FormItem>
           <FormItem
             {...formItemLayout}
@@ -164,7 +165,7 @@ const BasicForm: FC<BasicFormProps> = (props) => {
             }
             name="invites"
           >
-            <Input placeholder={formatMessage({ id: 'formandbasic-form.invites.placeholder' })} />
+            <Input placeholder={intl.formatMessage({ id: 'formandbasic-form.invites.placeholder' })} />
           </FormItem>
           <FormItem
             {...formItemLayout}
@@ -179,7 +180,7 @@ const BasicForm: FC<BasicFormProps> = (props) => {
             name="weight"
           >
             <InputNumber
-              placeholder={formatMessage({ id: 'formandbasic-form.weight.placeholder' })}
+              placeholder={intl.formatMessage({ id: 'formandbasic-form.weight.placeholder' })}
               min={0}
               max={100}
             />
@@ -206,7 +207,7 @@ const BasicForm: FC<BasicFormProps> = (props) => {
               <FormItem style={{ marginBottom: 0 }} name="publicUsers">
                 <Select
                   mode="multiple"
-                  placeholder={formatMessage({ id: 'formandbasic-form.publicUsers.placeholder' })}
+                  placeholder={intl.formatMessage({ id: 'formandbasic-form.publicUsers.placeholder' })}
                   style={{
                     margin: '8px 0',
                     display: showPublicUsers ? 'block' : 'none',

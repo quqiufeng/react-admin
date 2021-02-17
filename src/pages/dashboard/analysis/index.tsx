@@ -52,7 +52,7 @@ class Analysis extends Component<AnalysisProps, AnalysisState> {
     });
   }
 
-  componentWillUnmount() {
+  UNSAFE_componentWillMount() {
     const { dispatch } = this.props;
     dispatch({
       type: 'dashboardAndanalysis/clear',

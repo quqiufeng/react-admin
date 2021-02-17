@@ -11,6 +11,7 @@ import { SmileOutlined, HeartOutlined, CrownOutlined,
   DashboardOutlined, TableOutlined, ProfileOutlined, 
   WarningOutlined,UserOutlined, FormOutlined,} from '@ant-design/icons';
 import { currentUser as queryCurrentUser,currentMenu as queryMenu } from './services/ant-design-pro/api';
+import menu from 'mock/menu';
 const IconMap = {
   smile: <SmileOutlined />,
   heart: <HeartOutlined />,
@@ -74,14 +75,12 @@ export async function getInitialState(): Promise<{
 }
 
 //渲染菜单 加上icon
-/*
 const loopMenuItem = (menus: MenuDataItem[]): MenuDataItem[] =>
   menus.map(({ icon, children, ...item }) => ({
     ...item,
     icon: icon && IconMap[icon as string],
     children: children && loopMenuItem(children),
 }));
-*/
 
 //自定义菜单
 export const layout = ({
@@ -91,8 +90,20 @@ export const layout = ({
 }): BasicLayoutProps => {
   return {
     fixedHeader: true,
-    rightContentRender: () => <RightContent />,
-    footerRender: () => <Footer />,
+    rightContentRender: () => { 
+      const { location } = history;
+      if(location.pathname === '/user/login'){
+        return undefined;
+      }
+      return <RightContent />
+    },
+    footerRender: () => { 
+      const { location } = history;
+      if(location.pathname === '/user/login'){
+        return undefined;
+      }
+      return <Footer /> 
+    },
     onPageChange: () => {
       const { currentUser} = initialState;
       const { location } = history;
@@ -101,7 +112,10 @@ export const layout = ({
         history.push('/user/login');
       }
     },
-    //menuDataRender:() => loopMenuItem(initialState.currentMenu),
+    menuDataRender: () => { 
+      const { currentMenu} = initialState;
+      return currentMenu && currentMenu.length > 0 ? loopMenuItem(currentMenu) : [];
+    },
     menuHeaderRender: undefined,
     ...initialState?.settings,
   };
