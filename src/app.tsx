@@ -74,12 +74,14 @@ export async function getInitialState(): Promise<{
 }
 
 //渲染菜单 加上icon
+/*
 const loopMenuItem = (menus: MenuDataItem[]): MenuDataItem[] =>
   menus.map(({ icon, children, ...item }) => ({
     ...item,
     icon: icon && IconMap[icon as string],
     children: children && loopMenuItem(children),
 }));
+*/
 
 //自定义菜单
 export const layout = ({
@@ -99,7 +101,7 @@ export const layout = ({
         history.push('/user/login');
       }
     },
-    menuDataRender:() => loopMenuItem(initialState.currentMenu),
+    //menuDataRender:() => loopMenuItem(initialState.currentMenu),
     menuHeaderRender: undefined,
     ...initialState?.settings,
   };
