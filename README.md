@@ -33,3 +33,5 @@ npm test
 ```
 
 ## More
+
+![avatar](https://cdn.beautinow.com/beautinow-admin.png)
