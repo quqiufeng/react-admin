@@ -1,6 +1,6 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { Button, Card, DatePicker, Input, Form, InputNumber, Radio, Select, Tooltip } from 'antd';
-import { connect, Dispatch, FormattedMessage, formatMessage } from 'umi';
+import { connect, Dispatch, FormattedMessage, useIntl} from 'umi';
 import React, { FC } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import styles from './style.less';
@@ -16,6 +16,7 @@ interface BasicFormProps {
 }
 
 const BasicForm: FC<BasicFormProps> = (props) => {
+  const intl = useIntl();
   const { submitting } = props;
   const [form] = Form.useForm();
   const [showPublicUsers, setShowPublicUsers] = React.useState(false);
@@ -72,66 +73,62 @@ const BasicForm: FC<BasicFormProps> = (props) => {
           <FormItem
             {...formItemLayout}
             label={<FormattedMessage id="formandbasic-form.title.label" />}
-            name="title"
             rules={[
               {
                 required: true,
-                message: formatMessage({ id: 'formandbasic-form.title.required' }),
+                message: intl.formatMessage({ id: 'formandbasic-form.title.required' }),
               },
             ]}
           >
-            <Input placeholder={formatMessage({ id: 'formandbasic-form.title.placeholder' })} />
+            <Input placeholder={intl.formatMessage({ id: 'formandbasic-form.title.placeholder' })} />
           </FormItem>
           <FormItem
             {...formItemLayout}
             label={<FormattedMessage id="formandbasic-form.date.label" />}
-            name="date"
             rules={[
               {
                 required: true,
-                message: formatMessage({ id: 'formandbasic-form.date.required' }),
+                message: intl.formatMessage({ id: 'formandbasic-form.date.required' }),
               },
             ]}
           >
             <RangePicker
               style={{ width: '100%' }}
               placeholder={[
-                formatMessage({ id: 'formandbasic-form.placeholder.start' }),
-                formatMessage({ id: 'formandbasic-form.placeholder.end' }),
+                intl.formatMessage({ id: 'formandbasic-form.placeholder.start' }),
+                intl.formatMessage({ id: 'formandbasic-form.placeholder.end' }),
               ]}
             />
           </FormItem>
           <FormItem
             {...formItemLayout}
             label={<FormattedMessage id="formandbasic-form.goal.label" />}
-            name="goal"
             rules={[
               {
                 required: true,
-                message: formatMessage({ id: 'formandbasic-form.goal.required' }),
+                message: intl.formatMessage({ id: 'formandbasic-form.goal.required' }),
               },
             ]}
           >
             <TextArea
               style={{ minHeight: 32 }}
-              placeholder={formatMessage({ id: 'formandbasic-form.goal.placeholder' })}
+              placeholder={intl.formatMessage({ id: 'formandbasic-form.goal.placeholder' })}
               rows={4}
             />
           </FormItem>
           <FormItem
             {...formItemLayout}
             label={<FormattedMessage id="formandbasic-form.standard.label" />}
-            name="standard"
             rules={[
               {
                 required: true,
-                message: formatMessage({ id: 'formandbasic-form.standard.required' }),
+                message: intl.formatMessage({ id: 'formandbasic-form.standard.required' }),
               },
             ]}
           >
             <TextArea
               style={{ minHeight: 32 }}
-              placeholder={formatMessage({ id: 'formandbasic-form.standard.placeholder' })}
+              placeholder={intl.formatMessage({ id: 'formandbasic-form.standard.placeholder' })}
               rows={4}
             />
           </FormItem>
@@ -148,9 +145,8 @@ const BasicForm: FC<BasicFormProps> = (props) => {
                 </em>
               </span>
             }
-            name="client"
           >
-            <Input placeholder={formatMessage({ id: 'formandbasic-form.client.placeholder' })} />
+            <Input placeholder={intl.formatMessage({ id: 'formandbasic-form.client.placeholder' })} />
           </FormItem>
           <FormItem
             {...formItemLayout}
@@ -162,9 +158,8 @@ const BasicForm: FC<BasicFormProps> = (props) => {
                 </em>
               </span>
             }
-            name="invites"
           >
-            <Input placeholder={formatMessage({ id: 'formandbasic-form.invites.placeholder' })} />
+            <Input placeholder={intl.formatMessage({ id: 'formandbasic-form.invites.placeholder' })} />
           </FormItem>
           <FormItem
             {...formItemLayout}
@@ -176,10 +171,9 @@ const BasicForm: FC<BasicFormProps> = (props) => {
                 </em>
               </span>
             }
-            name="weight"
           >
             <InputNumber
-              placeholder={formatMessage({ id: 'formandbasic-form.weight.placeholder' })}
+              placeholder={intl.formatMessage({ id: 'formandbasic-form.weight.placeholder' })}
               min={0}
               max={100}
             />
@@ -189,7 +183,6 @@ const BasicForm: FC<BasicFormProps> = (props) => {
             {...formItemLayout}
             label={<FormattedMessage id="formandbasic-form.public.label" />}
             help={<FormattedMessage id="formandbasic-form.label.help" />}
-            name="publicType"
           >
             <div>
               <Radio.Group>
@@ -206,7 +199,7 @@ const BasicForm: FC<BasicFormProps> = (props) => {
               <FormItem style={{ marginBottom: 0 }} name="publicUsers">
                 <Select
                   mode="multiple"
-                  placeholder={formatMessage({ id: 'formandbasic-form.publicUsers.placeholder' })}
+                  placeholder={intl.formatMessage({ id: 'formandbasic-form.publicUsers.placeholder' })}
                   style={{
                     margin: '8px 0',
                     display: showPublicUsers ? 'block' : 'none',
