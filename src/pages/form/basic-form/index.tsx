@@ -40,6 +40,7 @@ const BasicForm: FC<BasicFormProps> = (props) => {
   };
 
   const onFinish = (values: { [key: string]: any }) => {
+    console.log(values);
     const { dispatch } = props;
     dispatch({
       type: 'formAndbasicForm/submitRegularForm',
@@ -73,6 +74,7 @@ const BasicForm: FC<BasicFormProps> = (props) => {
           <FormItem
             {...formItemLayout}
             label={<FormattedMessage id="formandbasic-form.title.label" />}
+            name="title"
             rules={[
               {
                 required: true,
@@ -83,6 +85,7 @@ const BasicForm: FC<BasicFormProps> = (props) => {
             <Input placeholder={intl.formatMessage({ id: 'formandbasic-form.title.placeholder' })} />
           </FormItem>
           <FormItem
+            name="date"
             {...formItemLayout}
             label={<FormattedMessage id="formandbasic-form.date.label" />}
             rules={[
@@ -101,6 +104,7 @@ const BasicForm: FC<BasicFormProps> = (props) => {
             />
           </FormItem>
           <FormItem
+             name="goal"
             {...formItemLayout}
             label={<FormattedMessage id="formandbasic-form.goal.label" />}
             rules={[
@@ -118,6 +122,7 @@ const BasicForm: FC<BasicFormProps> = (props) => {
           </FormItem>
           <FormItem
             {...formItemLayout}
+            name="standard"
             label={<FormattedMessage id="formandbasic-form.standard.label" />}
             rules={[
               {
@@ -134,6 +139,7 @@ const BasicForm: FC<BasicFormProps> = (props) => {
           </FormItem>
           <FormItem
             {...formItemLayout}
+            name="tooltip"
             label={
               <span>
                 <FormattedMessage id="formandbasic-form.client.label" />
@@ -149,6 +155,7 @@ const BasicForm: FC<BasicFormProps> = (props) => {
             <Input placeholder={intl.formatMessage({ id: 'formandbasic-form.client.placeholder' })} />
           </FormItem>
           <FormItem
+            name="invite"
             {...formItemLayout}
             label={
               <span>
@@ -162,6 +169,7 @@ const BasicForm: FC<BasicFormProps> = (props) => {
             <Input placeholder={intl.formatMessage({ id: 'formandbasic-form.invites.placeholder' })} />
           </FormItem>
           <FormItem
+            name="weight"
             {...formItemLayout}
             label={
               <span>
@@ -177,7 +185,6 @@ const BasicForm: FC<BasicFormProps> = (props) => {
               min={0}
               max={100}
             />
-            <span className="ant-form-text">%</span>
           </FormItem>
           <FormItem
             {...formItemLayout}

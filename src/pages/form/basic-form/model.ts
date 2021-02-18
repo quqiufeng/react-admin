@@ -5,7 +5,7 @@ import { fakeSubmitForm } from './service';
 export interface ModelType {
   namespace: string;
   state: {};
-  effects: {
+  effects: {//处理异步逻辑
     submitRegularForm: Effect;
   };
 }
@@ -14,6 +14,7 @@ const Model: ModelType = {
 
   state: {},
 
+  //payload 调用函数传递的参数
   effects: {
     *submitRegularForm({ payload }, { call }) {
       yield call(fakeSubmitForm, payload);
